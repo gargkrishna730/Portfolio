@@ -3,7 +3,7 @@ import "./Portfolio.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Sidebar from "../../img/Unisex.png";
-import HOC from "../../img/news.png";
+import HOC from "../../img/world.png";
 import Ecommerce from "../../img/phone360.png";
 import MusicApp from "../../img/Music.png";
 import { themeContext } from "../../Context";
@@ -31,7 +31,7 @@ const Portfolio = () => {
           </a>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="https://world-0f-crypto.netlify.app">
+          <a href="https://onlinemobilewebsite.netlify.app/">
             <img src={Ecommerce} alt="" />
           </a>
         </SwiperSlide>
