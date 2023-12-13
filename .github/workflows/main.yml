@@ -1,33 +1,33 @@
-name: Netlify Deployment
+name: "ci-cd pipeline"
 
-on:
+on: 
   push:
     branches:
-      - main # Change this to the branch you want to deploy
+    - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: npm install # Replace with your build command if using a different tool
-
-    - name: Build
-      run: npm run build # Replace with your build command if using a different tool
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Deploy to Netlify
-      uses: netlify/actions/cli@v3.0.0
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
       with:
-        args: deploy --prod
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        node-version: 16.x
+        cache: 'npm'
+        cache-dependency-path: package-lock.json
+    - name: Install dependencies
+      run: npm install 
+    # - name: Run tests
+    #   run: npm test
+    - name: Build file
+      run: npm run build
+
+    # deploy the application to Netlify
+    - name: Deploy production to Netlify
+      uses: South-Paw/action-netlify-deploy@v1.2.0
+      with:
+        netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+        build-dir: './build'
+        comment-on-commit: true
